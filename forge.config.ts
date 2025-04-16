@@ -25,7 +25,8 @@ const config: ForgeConfig = {
         owner: 'Booskindustries',
         name: 'jons-todo-app',
       },
-      prerelease: true
+      prerelease: true,
+      draft: true,
     }
   }],
   plugins: [
