@@ -1,7 +1,7 @@
 {
   "name": "jons-todo-app",
   "productName": "jons-todo-app",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "My Electron application description",
   "main": ".webpack/main",
   "scripts": {
