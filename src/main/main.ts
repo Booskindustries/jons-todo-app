@@ -1,11 +1,12 @@
 import { app, BrowserWindow } from 'electron';
 import { updateElectronApp } from 'update-electron-app';
+import log from 'electron-log';
 
 // Automatically check for updates
 updateElectronApp({
   repo: 'Booskindustries/jons-todo-app', // Your GitHub repository
   updateInterval: '5 minutes', // Check for updates every 5mins
-  logger: console, // Log update events to the console
+  logger: log, // Log update events to the console
 });
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
@@ -25,6 +26,7 @@ const createWindow = (): void => {
   });
 
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
+  log.info('Main window loaded:', MAIN_WINDOW_WEBPACK_ENTRY);
 };
 
 app.on('ready', createWindow);
