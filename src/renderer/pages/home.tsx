@@ -7,6 +7,7 @@ const Homepage = () => {
         <button onClick={() => alert('Button clicked!')}>Click Me!</button>
         <p>This is a simple todo app built with Electron and React.</p>
         <input type="text" placeholder="Add a new task" />
+        <input type="radio">Add Task</input>
     </div>
   );
 };
