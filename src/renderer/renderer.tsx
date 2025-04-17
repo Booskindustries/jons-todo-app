@@ -26,6 +26,16 @@
  * ```
  */
 
-import './index.css';
+import './styles/app.css';
 
-console.log('👋 This message is being logged by "renderer.js", included via webpack');
+// Import and render the React application
+import React from 'react';
+import { createRoot } from 'react-dom/client';
+import App from './app'; // Corrected import path
+
+// Render the React application into the root div in index.html
+const root = createRoot(document.getElementById('root')!);
+root.render(<App />);
+
+// Log a message to the console to indicate that the renderer process has been initialized
+console.log('👋 Renderer process initialized');
