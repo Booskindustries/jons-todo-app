@@ -4,7 +4,6 @@ import log from 'electron-log';
 
 // Automatically check for updates
 updateElectronApp({
-  repo: 'Booskindustries/jons-todo-app', // Your GitHub repository
   updateInterval: '5 minutes', // Check for updates every 5mins
   logger: log, // Log update events to the console
 });
