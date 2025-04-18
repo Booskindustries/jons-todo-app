@@ -1,9 +1,20 @@
 import React from 'react';
 import Homepage from './pages/home';
+import Header from './components/Header';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+
+const darkTheme = createTheme({
+  palette: {
+    mode: 'light',
+  },
+});
 
 const App = () => {
   return (
-    <Homepage />
+    <ThemeProvider theme={darkTheme}>
+      <Header />
+      <Homepage />
+  </ThemeProvider>
   );
 };
 
