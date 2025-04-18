@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, TextField, Typography, List, ListItem, Grid} from '@mui/material';
+import { Button, TextField, Typography, List, ListItem, ListItemIcon, Grid} from '@mui/material';
 
 const Homepage = () => {
   return (
@@ -18,7 +18,9 @@ const Homepage = () => {
         <Grid container spacing={2}  justifyContent={'center'} alignItems='center'>
           <Grid size={12} sx={{ display: 'flex', justifyContent: 'center' }}>
             <List>
-              <ListItem>Task 1</ListItem>
+              
+              <ListItem>
+                <ListItemIcon>1.</ListItemIcon>Task 1</ListItem>
               <ListItem>Task 2</ListItem>
               <ListItem>Task 3</ListItem>
             </List>
