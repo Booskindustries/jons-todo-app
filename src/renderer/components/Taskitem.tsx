@@ -3,31 +3,36 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner";
 
 
+// Added date prop for a time to finish task
 interface TaskItemProps {
     title: string;
     body: string;
+    date?: string; // Optional date prop
 }
-//todo: add date prop for a time to finish task
-const TaskItem: React.FC<TaskItemProps> = ({ title, body }) => {
+
+const TaskItem: React.FC<TaskItemProps> = ({ title, body, date }) => {
     const [checked, setChecked] = React.useState(false);
 
     const handleCheckboxClick = () => {
-        setChecked(!checked);
-        toast(`Task "${title}" ${checked ? "unchecked" : "checked"}`, {
+        const newCheckedState = !checked;
+        setChecked(newCheckedState);
+        toast(`Task "${title}" ${newCheckedState ? "checked" : "unchecked"}`, {
             duration: 2000,
-            description: `You have ${checked ? "unchecked" : "checked"} the task "${title}".`,
+            description: `You have ${newCheckedState ? "checked" : "unchecked"} the task "${title}".`,
             action: {
                 label: "Undo",
-            onClick: () => {
-                    setChecked(!checked);
+                onClick: () => {
+                    setChecked(!newCheckedState);
                     toast.dismiss();
-                }}});
-        
+                },
+            },
+        });
     };
+      
 
     return (
         <div className="flex items-center mb-2.5">
-            <Checkbox className="mr-2.5" onClick={handleCheckboxClick} />
+            <Checkbox className="mr-2.5" checked={checked} onClick={handleCheckboxClick} />
             <div>
                 <h3 className="m-0 text-base font-medium">{title}</h3>
                 <p className="m-0 text-sm text-gray-600">{body}</p>
