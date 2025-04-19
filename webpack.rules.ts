@@ -28,4 +28,8 @@ export const rules: Required<ModuleOptions>['rules'] = [
       },
     },
   },
+  {
+    test: /\.(png|jpe?g|gif|svg)$/i,
+    type: 'asset/resource', // Use Webpack's asset modules to handle images
+  },
 ];
