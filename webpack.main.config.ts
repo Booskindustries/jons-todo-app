@@ -14,7 +14,7 @@ export const mainConfig: Configuration = {
     rules,
   },
   plugins,
-  resolve: {
+  resolve: {   
     extensions: ['.js', '.ts', '.jsx', '.tsx', '.css', '.json'],
   },
 };
