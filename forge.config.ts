@@ -13,11 +13,11 @@ import { rendererConfig } from './webpack.renderer.config';
 
 const config: ForgeConfig = {
   packagerConfig: {
-    icon: './src/icon/todolisticon',
+    icon: './src/icon/todolisticon2',
     asar: true,
   },
   rebuildConfig: {},
-  makers: [new MakerSquirrel({setupIcon: './src/icon/todolisticon'}), new MakerZIP({}, ['darwin']), new MakerRpm({}), new MakerDeb({})],
+  makers: [new MakerSquirrel({setupIcon: './src/icon/todolisticon2.ico'}), new MakerZIP({}, ['darwin']), new MakerRpm({}), new MakerDeb({})],
   publishers: [
     {
     name: '@electron-forge/publisher-github',

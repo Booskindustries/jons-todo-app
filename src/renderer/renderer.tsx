@@ -26,7 +26,7 @@
  * ```
  */
 
-import './styles/output.css';
+import '../styles/output.css';
 
 // Import and render the React application
 import React from 'react';
