@@ -1,7 +1,6 @@
 import React from 'react';
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
 import { AppSidebar } from "@/components/SideBar"
-import { Toaster } from "@/components/ui/sonner"
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (

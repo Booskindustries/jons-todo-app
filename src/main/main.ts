@@ -1,6 +1,7 @@
 import { app, BrowserWindow } from 'electron';
 import { updateElectronApp } from 'update-electron-app';
 import log from 'electron-log';
+import  DatabaseService  from './services/database.service';
 
 // Automatically check for updates
 updateElectronApp({
@@ -15,8 +16,11 @@ if (require('electron-squirrel-startup')) {
   app.quit();
 }
 
-const createWindow = (): void => {
+// Initialize the database service
+const databaseService = new DatabaseService();
+log.info('DatabaseService initialized:', databaseService);
 
+const createWindow = (): void => {
   const mainWindow = new BrowserWindow({
     height: 800,
     width: 1000,
