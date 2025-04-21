@@ -1,13 +1,6 @@
 
+import { Task } from '../lib/types';
 
-export type Task = {
-    id?: number;
-    title: string;
-    description: string;
-    due_date: string;
-    status?: string;
-  };
-  
   export const databaseService = {
     addTask: async (task: Task): Promise<void> => {
       console.log('Sending task to main process:', task); 

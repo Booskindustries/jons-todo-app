@@ -1,22 +1,16 @@
 /* eslint-disable import/no-unresolved */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { PlusCircleIcon, Trash2, Pencil } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import TaskItem from '@/components/Taskitem';
-import { databaseService, Task } from '../services/database.renderer.service';
+import { databaseService } from '../services/database.renderer.service';
 import { log } from 'electron-log';
-
-const Homepage = () => {
-
-  const [tasks, setTasks] = useState([]);
-  const [newTask, setNewTask] = useState({ title: '', description: '', due_date: '' });
-
-  useEffect(() => {
-    databaseService.getTasks().then(setTasks);
-  }, []);
+import { Task, TaskImportProps } from '../lib/types';
 
 
+
+const Homepage: React.FC<TaskImportProps> = ({ tasks, setTasks, newTask, setNewTask }) => {
 
   useEffect(() => {
     console.log('Tasks:', tasks);
