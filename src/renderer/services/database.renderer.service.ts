@@ -1,6 +1,6 @@
 
 
-type Task = {
+export type Task = {
     id?: number;
     title: string;
     description: string;
@@ -20,6 +20,10 @@ type Task = {
 
     deleteTask: async (id: number): Promise<void> => {
       await (window as any).ipcAPI.invoke('delete-task', id);
+    },
+
+    updateTask: async (task: Task): Promise<void> => {
+      await (window as any).ipcAPI.invoke('update-task', task);
     },
   
     updateTaskStatus: async (id: number, status: string): Promise<void> => {

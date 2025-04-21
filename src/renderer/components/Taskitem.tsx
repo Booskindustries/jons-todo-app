@@ -36,7 +36,7 @@ const TaskItem: React.FC<TaskItemProps> = ({ id, title, body, date, status }) =>
       
 
     return (
-        <div className="flex items-center mb-2.5">
+        <div className="flex items-center mb-2.5 hover:bg-gray-100 p-2 rounded-md cursor-pointer transition duration-200 ease-in-out">
             <Checkbox className="mr-2.5" checked={checked} onClick={handleCheckboxClick} />
             <div>
                 <h3 className="m-0 text-base font-medium">{title}</h3>

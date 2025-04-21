@@ -1,5 +1,5 @@
 import { ipcMain } from 'electron';
-import { addTask, getTasks, deleteTask, updateTaskStatus } from '../database/database';
+import { addTask, getTasks, deleteTask, updateTask, updateTaskStatus } from '../database/database';
 
 class DatabaseService {
   constructor() {
@@ -17,6 +17,10 @@ class DatabaseService {
 
     ipcMain.handle('delete-task', (event, id) => {
       deleteTask(id);
+    });
+
+    ipcMain.handle('update-task', (event, { id, title, description, dueDate }) => {
+      updateTask(id, title, description, dueDate);
     });
 
     ipcMain.handle('update-task-status', (event, { id, status }) => {
