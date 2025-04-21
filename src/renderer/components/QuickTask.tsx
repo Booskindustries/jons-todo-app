@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {
     Dialog,
     DialogContent,
@@ -9,13 +9,40 @@ import {
   } from "@/components/ui/dialog";
 import { PlusCircleIcon } from "lucide-react";
 import { SidebarMenuButton } from "@/components/ui/sidebar"
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { databaseService } from '../services/database.renderer.service';
+import { toast } from "sonner";
 
 
 
 
-export function QuickTask(){
- return(
-    <Dialog>
+export function QuickTask() {
+
+const [tasks, setTasks] = useState([]);
+const [newTask, setNewTask] = useState({ title: '', description: '', due_date: '' });
+const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+const handleAddTask = () => {
+    databaseService.addTask(newTask).then(() => {
+        databaseService.getTasks().then(setTasks);
+        setNewTask({ title: '', description: '', due_date: '' });
+    });
+    toast.success(`Task "${newTask.title}" added successfully!`, {
+        duration: 2000,
+        description: `You have added the task "${newTask.title}".`,
+        action: {
+            label: "Undo",
+            onClick: () => {
+                setNewTask({ title: '', description: '', due_date: '' });
+                toast.dismiss();
+            },
+        },
+    });
+};
+
+return (
+    <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <DialogTrigger asChild>
             <SidebarMenuButton
                 onClick={() => console.log("Quick Create Task")}
@@ -27,14 +54,44 @@ export function QuickTask(){
             </SidebarMenuButton>
         </DialogTrigger>
         <DialogContent>
-        <DialogHeader>
-        <DialogTitle>Are you absolutely sure?</DialogTitle>
-        <DialogDescription>
-            This action cannot be undone. This will permanently delete your account
-            and remove your data from our servers.
-        </DialogDescription>
-        </DialogHeader>
+            <DialogHeader>
+                <DialogTitle>Create Task</DialogTitle>
+                <DialogDescription>
+                    Create a new task.
+                </DialogDescription>
+            </DialogHeader>
+
+            <Input
+                type="text"
+                placeholder="Title"
+                value={newTask.title}
+                onChange={(e) => setNewTask({ ...newTask, title: e.target.value })}
+            />
+            <Input
+                type="text"
+                placeholder="Description"
+                value={newTask.description}
+                onChange={(e) => {
+                    setNewTask({ ...newTask, description: e.target.value });
+                }}
+            />
+            <Input
+                type="date"
+                value={newTask.due_date}
+                onChange={(e) => {
+                    setNewTask({ ...newTask, due_date: e.target.value });
+                    console.log('Due date:', e.target.value);
+                }}
+            />
+            <Button
+                onClick={() => {
+                    handleAddTask();
+                    setIsDialogOpen(false); // Close the dialog after adding the task
+                }}
+            >
+                <PlusCircleIcon />Add Task
+            </Button>
         </DialogContent>
     </Dialog>
-    )
+);
 }

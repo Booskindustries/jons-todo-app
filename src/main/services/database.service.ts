@@ -8,7 +8,8 @@ class DatabaseService {
 
   public registerIpcHandlers() {
     ipcMain.handle('add-task', (event, task) => {
-      addTask(task.title, task.description, task.dueDate);
+      console.log('Adding task:', task);
+      addTask(task.title, task.description, task.due_date);
     });
 
     ipcMain.handle('get-tasks', () => {

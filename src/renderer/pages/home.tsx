@@ -6,7 +6,6 @@ import { Input } from '@/components/ui/input';
 import TaskItem from '@/components/Taskitem';
 import { databaseService, Task } from '../services/database.renderer.service';
 import { log } from 'electron-log';
-import { QuickTask } from '@/components/QuickTask';
 
 const Homepage = () => {
 
@@ -28,7 +27,7 @@ const Homepage = () => {
       setNewTask({ title: '', description: '', due_date: '' });
     });
   };
-''
+
   const handleUpdateTask = (id:number, updatedTask:Task) => {
     log('Updating task with ID:', id, 'to:', updatedTask);
     databaseService.updateTask({ ...updatedTask, id }).then(() => {
@@ -80,12 +79,18 @@ const Homepage = () => {
           type="text"
           placeholder="Description"
           value={newTask.description}
-          onChange={(e) => setNewTask({ ...newTask, description: e.target.value })}
+          onChange={(e) => {
+            setNewTask({ ...newTask, description: e.target.value });
+            console.log('Description:', e.target.value);
+          }}
         />
         <Input
           type="date"
           value={newTask.due_date}
-          onChange={(e) => setNewTask({ ...newTask, due_date: e.target.value })}
+          onChange={(e) => {
+            setNewTask({ ...newTask, due_date: e.target.value });
+            console.log('Due date:', e.target.value);
+          }}
         />
         <Button onClick={handleAddTask}><PlusCircleIcon />Add Task</Button>
     </div>
