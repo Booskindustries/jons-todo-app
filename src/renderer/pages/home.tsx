@@ -16,6 +16,8 @@ const Homepage = () => {
     databaseService.getTasks().then(setTasks);
   }, []);
 
+
+
   useEffect(() => {
     console.log('Tasks:', tasks);
   }, [tasks]);
