@@ -16,6 +16,11 @@ type Task = {
     getTasks: async (): Promise<Task[]> => {
       return await (window as any).ipcAPI.invoke('get-tasks');
     },
+
+
+    deleteTask: async (id: number): Promise<void> => {
+      await (window as any).ipcAPI.invoke('delete-task', id);
+    },
   
     updateTaskStatus: async (id: number, status: string): Promise<void> => {
       await (window as any).ipcAPI.invoke('update-task-status', { id, status });
