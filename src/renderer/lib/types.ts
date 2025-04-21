@@ -6,6 +6,8 @@ export type TaskImportProps = {
   setTasks: React.Dispatch<React.SetStateAction<Task[]>>;
   newTask: Task;
   setNewTask: React.Dispatch<React.SetStateAction<Task>>;
+  handleAddTask?: () => void;
+  children?: React.ReactNode;
 }
 
 

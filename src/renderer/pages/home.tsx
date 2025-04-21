@@ -6,23 +6,17 @@ import { Input } from '@/components/ui/input';
 import TaskItem from '@/components/Taskitem';
 import { databaseService } from '../services/database.renderer.service';
 import { log } from 'electron-log';
-import { Task, TaskImportProps } from '../lib/types';
+import { Task } from '@/lib/types';
+import { useTaskContext } from '../context/TaskContext';
 
 
+const Homepage = () => {
 
-const Homepage: React.FC<TaskImportProps> = ({ tasks, setTasks, newTask, setNewTask }) => {
+  const { tasks, setTasks, newTask, setNewTask, handleAddTask } = useTaskContext();
 
   useEffect(() => {
     console.log('Tasks:', tasks);
   }, [tasks]);
-
-  const handleAddTask = () => {
-    log('Adding task:', newTask);
-    databaseService.addTask(newTask).then(() => {
-      databaseService.getTasks().then(setTasks);
-      setNewTask({ title: '', description: '', due_date: '' });
-    });
-  };
 
   const handleUpdateTask = (id:number, updatedTask:Task) => {
     log('Updating task with ID:', id, 'to:', updatedTask);

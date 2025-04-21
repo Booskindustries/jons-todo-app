@@ -11,35 +11,13 @@ import { PlusCircleIcon } from "lucide-react";
 import { SidebarMenuButton } from "@/components/ui/sidebar"
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { databaseService } from '../services/database.renderer.service';
-import { toast } from "sonner";
-
-
+import { useTaskContext } from "../context/TaskContext";
 
 
 export function QuickTask() {
 
-const [tasks, setTasks] = useState([]);
-const [newTask, setNewTask] = useState({ title: '', description: '', due_date: '' });
+const { newTask, setNewTask, handleAddTask } = useTaskContext();
 const [isDialogOpen, setIsDialogOpen] = useState(false);
-
-const handleAddTask = () => {
-    databaseService.addTask(newTask).then(() => {
-        databaseService.getTasks().then(setTasks);
-        setNewTask({ title: '', description: '', due_date: '' });
-    });
-    toast.success(`Task "${newTask.title}" added successfully!`, {
-        duration: 2000,
-        description: `You have added the task "${newTask.title}".`,
-        action: {
-            label: "Undo",
-            onClick: () => {
-                setNewTask({ title: '', description: '', due_date: '' });
-                toast.dismiss();
-            },
-        },
-    });
-};
 
 return (
     <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
