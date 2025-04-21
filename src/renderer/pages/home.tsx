@@ -20,11 +20,6 @@ const Homepage = () => {
     console.log('Tasks:', tasks);
   }, [tasks]);
 
-  const addTask = () => {
-    const newTask = { title: `Task ${tasks.length + 1}`, body: `This is task number ${tasks.length + 1}.`, due_date: '' };
-    setTasks([...tasks, newTask]);
-  };
-
   const handleAddTask = () => {
     log('Adding task:', newTask);
     databaseService.addTask(newTask).then(() => {
