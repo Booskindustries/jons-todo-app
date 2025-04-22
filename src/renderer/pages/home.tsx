@@ -33,7 +33,7 @@ const Homepage = () => {
   };
 
   return (
-    <div className="container mx-auto p-4 full-width">
+    <div id="home" className="container mx-auto p-4 full-width">
         <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">Home</h2>
         
         {tasks.map((task, index) => (

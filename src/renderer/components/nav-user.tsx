@@ -2,7 +2,7 @@ import React from "react"
 
 import {
   BellIcon,
-  CreditCardIcon,
+  Printer,
   LogOutIcon,
   MoreVerticalIcon,
   UserCircleIcon,
@@ -97,8 +97,8 @@ export function NavUser({
                 Account
               </DropdownMenuItem>
               <DropdownMenuItem>
-                <CreditCardIcon />
-                Billing
+                <Printer />
+                Print
               </DropdownMenuItem>
               <DropdownMenuItem>
                 <BellIcon />
