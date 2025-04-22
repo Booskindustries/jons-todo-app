@@ -37,5 +37,3 @@ import App from './app'; // Corrected import path
 const root = createRoot(document.getElementById('root'));
 root.render(<App />);
 
-// Log a message to the console to indicate that the renderer process has been initialized
-console.log('👋 Renderer process initialized');

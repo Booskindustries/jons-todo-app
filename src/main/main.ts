@@ -5,7 +5,7 @@ import  DatabaseService  from './services/database.service';
 
 // Automatically check for updates
 updateElectronApp({
-  updateInterval: '5 minutes', // Check for updates every 5mins
+  updateInterval: '30 minutes', // Check for updates every 5mins
   logger: log, // Log update events to the console
 });
 
