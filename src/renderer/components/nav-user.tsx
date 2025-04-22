@@ -1,4 +1,6 @@
 import React from "react"
+import { useTaskContext } from '../context/TaskContext';
+
 
 import {
   BellIcon,
@@ -39,6 +41,7 @@ export function NavUser({
   }
 }) {
   const { isMobile } = useSidebar()
+  const { tasks } = useTaskContext();
 
   const getInitials = (name: string) => {
     const names = name.split(" ")
@@ -48,6 +51,10 @@ export function NavUser({
     return names[0][0]
   }
 
+  const handlePrint = () => {
+    (window as any).ipcAPI.invoke('print-home', tasks);
+  };
+  
   return (
     <SidebarMenu>
       <SidebarMenuItem>
@@ -96,7 +103,7 @@ export function NavUser({
                 <UserCircleIcon />
                 Account
               </DropdownMenuItem>
-              <DropdownMenuItem>
+              <DropdownMenuItem id="print" onClick={handlePrint}> 
                 <Printer />
                 Print
               </DropdownMenuItem>

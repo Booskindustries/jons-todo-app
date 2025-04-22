@@ -2,6 +2,7 @@ import { app, BrowserWindow } from 'electron';
 import { updateElectronApp } from 'update-electron-app';
 import log from 'electron-log';
 import  DatabaseService  from './services/database.service';
+import { registerPrintService } from './services/print.service';
 
 // Automatically check for updates
 updateElectronApp({
@@ -20,6 +21,9 @@ if (require('electron-squirrel-startup')) {
 const databaseService = new DatabaseService();
 log.info('DatabaseService initialized:', databaseService);
 
+registerPrintService();
+log.info('Print service registered');
+
 const createWindow = (): void => {
   const mainWindow = new BrowserWindow({
     height: 800,
@@ -28,7 +32,7 @@ const createWindow = (): void => {
     titleBarStyle: 'default',
     titleBarOverlay: true,
     frame: true,
-    autoHideMenuBar: true,
+    //autoHideMenuBar: true,
     webPreferences: {
       preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
     },
