@@ -125,7 +125,7 @@ const Homepage = () => {
             console.log('Due date:', e.target.value);
           }}
         />
-        <Button onClick={handleAddTask}><PlusCircleIcon />Add Task</Button>
+        <Button onClick={handleAddTask}><PlusCircleIcon />Add New Task</Button>
     </div>
   );
 };
