@@ -3,7 +3,6 @@ import { Task } from '../lib/types';
 
   export const databaseService = {
     addTask: async (task: Task): Promise<void> => {
-      console.log('Sending task to main process:', task); 
       await (window as any).ipcAPI.invoke('add-task', task);
     },
   

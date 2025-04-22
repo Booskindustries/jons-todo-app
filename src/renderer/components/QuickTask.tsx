@@ -19,6 +19,14 @@ export function QuickTask() {
 const { newTask, setNewTask, handleAddTask } = useTaskContext();
 const [isDialogOpen, setIsDialogOpen] = useState(false);
 
+
+/** 
+* Handles the addition of a new task from a dialog box.
+* It sets the new task's properties based on user input and closes the dialog after adding the task.
+* 
+* @component QuickTask
+* @returns {JSX.Element} - A React component that renders a button to open a dialog for creating a new task.
+ */
 return (
     <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <DialogTrigger asChild>

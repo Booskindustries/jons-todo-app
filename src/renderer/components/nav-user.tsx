@@ -31,6 +31,21 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar"
 
+
+
+/**
+ * @param param0 - The user object containing user information.
+ * @param {Object} param0.user - The user object.
+ * @param {string} param0.user.name - The user's name.
+ * @param {string} param0.user.email - The user's email.
+ * @param {string} param0.user.avatar - The user's avatar image URL.
+ * 
+ * @component NavUser
+ * @description A component that displays the user's avatar, name, and email in a dropdown menu.
+ * It includes options for account settings, notifications, and logout.
+ * 
+ * @returns {JSX.Element} - A React component that represents the user's profile in the sidebar.
+ */
 export function NavUser({
   user,
 }: {

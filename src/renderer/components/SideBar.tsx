@@ -15,7 +15,21 @@ import {
     SidebarMenuItem,
 } from "@/components/ui/sidebar"
 
-// Menu items.
+/**
+ * Data structure for the sidebar items and user information.
+ * @typedef {Object} SidebarData
+ * 
+ * @property {Object} user - User information.
+ * @property {string} user.name - User's name.
+ * @property {string} user.email - User's email.
+ * @property {string} user.avatar - User's avatar image URL.
+ * 
+ * @property {Array} items - List of sidebar items.
+ *  @property {string} items[].title - Title of the sidebar item.
+ *  @property {string} items[].url - URL of the sidebar item.
+ *  @property {React.Component} items[].icon - Icon component for the sidebar item.
+ *  
+ */
 const data = {
     user: {
         name: "Jon Barrett",
@@ -46,6 +60,16 @@ const data = {
     ],
 };
 
+
+
+/**
+ * AppSidebar component represents the sidebar of the application.
+ * It contains a list of menu items and a user profile section.
+ * The sidebar is collapsible and can be toggled by the user.
+ * 
+ * @component AppSidebar
+ * @returns {JSX.Element} - A React component that represents the application sidebar.
+ */
 export function AppSidebar() {
   return (
       <Sidebar collapsible="icon">

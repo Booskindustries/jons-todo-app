@@ -19,10 +19,9 @@ if (require('electron-squirrel-startup')) {
 
 // Initialize the database service
 const databaseService = new DatabaseService();
-log.info('DatabaseService initialized:', databaseService);
+log.debug('DatabaseService initialized:', databaseService);
 
 registerPrintService();
-log.info('Print service registered');
 
 const createWindow = (): void => {
   const mainWindow = new BrowserWindow({
@@ -39,7 +38,6 @@ const createWindow = (): void => {
   });
 
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
-  log.info('Main window loaded:', MAIN_WINDOW_WEBPACK_ENTRY);
 };
 
 app.on('ready', createWindow);

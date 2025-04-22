@@ -3,6 +3,12 @@ import { databaseService } from '../services/database.renderer.service';
 import { toast } from 'sonner';
 import { Task } from '@/lib/types';
 
+
+/**
+* TaskContextType defines the shape of the context value that will be provided to components.
+* It includes the tasks array, functions to set tasks, add a new task, and update an existing task.
+* It also includes the newTask and editTask state variables.
+ */
 type TaskContextType = {
   tasks: Task[];
   setTasks: React.Dispatch<React.SetStateAction<Task[]>>;
@@ -16,6 +22,17 @@ type TaskContextType = {
 
 const TaskContext = createContext<TaskContextType | undefined>(undefined);
 
+
+/**
+ * @param children - The children prop is the content that will be wrapped by the TaskProvider.
+ * @returns A TaskProvider component that provides the task context to its children.
+ * The TaskProvider component is a React functional component that uses the useState and useEffect 
+ * hooks to manage the state of tasks and provide functions to add and update tasks.
+ * It uses the TaskContext to provide the tasks and functions to its children components.
+ * 
+ * @returns {JSX.Element} - A React component that provides the task context to its children.
+ *  
+ */
 export const TaskProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [newTask, setNewTask] = useState<Task>({ title: '', description: '', due_date: '' });

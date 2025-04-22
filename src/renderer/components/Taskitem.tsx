@@ -13,6 +13,13 @@ interface TaskItemProps {
     status: string; 
 }
 
+
+/**
+ * TaskItem component represents a single task item in the task list.
+ * It displays the task title, body, and due date, and allows the user to check/uncheck the task.
+ * @param {TaskItemProps} props - The properties for the TaskItem component.
+ * @returns {JSX.Element} - A React component that represents a task item.
+ */
 const TaskItem: React.FC<TaskItemProps> = ({ id, title, body, date, status }) => {
     const [checked, setChecked] = React.useState(status === "completed");
 

@@ -5,15 +5,12 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import TaskItem from '@/components/Taskitem';
 import { databaseService } from '../services/database.renderer.service';
-import { log } from 'electron-log';
 import { Task } from '@/lib/types';
 import { useTaskContext } from '../context/TaskContext';
-import { set } from 'date-fns';
 
 
 const Homepage = () => {
   const [edit, setEdit] = React.useState<number>(-1);
-
   const { tasks, setTasks, newTask, setNewTask, editTask, setEditTask, handleAddTask , handleUpdateTask} = useTaskContext();
 
   useEffect(() => {
@@ -37,7 +34,6 @@ const Homepage = () => {
   }
 
   const handleDeleteTask = (id:number) => {
-    log('Deleting task with ID:', id);
     databaseService.deleteTask(id).then(() => {
       databaseService.getTasks().then(setTasks);
     });

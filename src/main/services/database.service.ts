@@ -7,8 +7,7 @@ class DatabaseService {
   }
 
   public registerIpcHandlers() {
-    ipcMain.handle('add-task', (event, task) => {
-      console.log('Adding task:', task);
+    ipcMain.handle('add-task', (event, task) => {  
       addTask(task.title, task.description, task.due_date);
     });
 
