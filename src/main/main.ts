@@ -25,6 +25,10 @@ const createWindow = (): void => {
     height: 800,
     width: 1000,
     icon: '../icon/todolisticon.png',
+    titleBarStyle: 'default',
+    titleBarOverlay: true,
+    frame: true,
+    autoHideMenuBar: true,
     webPreferences: {
       preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
     },
