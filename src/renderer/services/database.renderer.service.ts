@@ -11,13 +11,12 @@ import { Task } from '../lib/types';
       return await (window as any).ipcAPI.invoke('get-tasks');
     },
 
-
     deleteTask: async (id: number): Promise<void> => {
       await (window as any).ipcAPI.invoke('delete-task', id);
     },
 
-    updateTask: async (task: Task): Promise<void> => {
-      await (window as any).ipcAPI.invoke('update-task', task);
+    updateTask: async (id:number, task: Task): Promise<void> => {
+      await (window as any).ipcAPI.invoke('update-task', id, task);
     },
   
     updateTaskStatus: async (id: number, status: string): Promise<void> => {

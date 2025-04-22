@@ -8,22 +8,33 @@ import { databaseService } from '../services/database.renderer.service';
 import { log } from 'electron-log';
 import { Task } from '@/lib/types';
 import { useTaskContext } from '../context/TaskContext';
+import { set } from 'date-fns';
 
 
 const Homepage = () => {
+  const [edit, setEdit] = React.useState<number>(-1);
 
-  const { tasks, setTasks, newTask, setNewTask, handleAddTask } = useTaskContext();
+  const { tasks, setTasks, newTask, setNewTask, editTask, setEditTask, handleAddTask , handleUpdateTask} = useTaskContext();
 
   useEffect(() => {
     console.log('Tasks:', tasks);
   }, [tasks]);
 
-  const handleUpdateTask = (id:number, updatedTask:Task) => {
-    log('Updating task with ID:', id, 'to:', updatedTask);
-    databaseService.updateTask({ ...updatedTask, id }).then(() => {
-      databaseService.getTasks().then(setTasks);
+  const handleLocalEditTask = (id:number, updatedTask:Task) => {
+   handleUpdateTask(id, updatedTask);
+   setEdit(-1);
+  }
+
+  const handleEditTask = (task:Task,index:number) => {
+    setEdit(index);
+    setEditTask({
+      id: task.id,
+      title: task.title,
+      description: task.description,
+      due_date: task.due_date,
+      status: task.status,
     });
-  };
+  }
 
   const handleDeleteTask = (id:number) => {
     log('Deleting task with ID:', id);
@@ -37,27 +48,60 @@ const Homepage = () => {
         <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">Home</h2>
         
         {tasks.map((task, index) => (
+          
           <div className="flex items-center mb-2.5 hover:bg-gray-100 p-2 rounded-md cursor-pointer transition duration-200 ease-in-out" key={`${index}-${task.id}`}>
-            <TaskItem key={`${index}-${task.id}`} id={task.id} title={task.title} body={task.description} date={task.due_date} status={task.status} />
-            <div className="flex items-center ml-auto">
-              <Button
-                variant='outline'
-                className='mr-2'
-                onClick={() => console.log('Edit task with ID:', task.id)}
-              >
-                <Pencil/>
-              </Button>
-              <Button
-                variant='outline'
-                className='hover:bg-red-500 hover:text-white'
-                onClick={() => handleDeleteTask(task.id)}
-              >
-                <Trash2 />
-              </Button>
-            </div>
+            {edit !== index ? (
+              <>
+                <TaskItem key={`${index}-${task.id}`} id={task.id} title={task.title} body={task.description} date={task.due_date} status={task.status} />
+                <div className="flex items-center ml-auto">
+                  <Button
+                    variant='outline'
+                    className='mr-2'
+                    onClick={() => handleEditTask(task,index)}
+                  >
+                    <Pencil />
+                  </Button>
+                  <Button
+                    variant='outline'
+                    className='hover:bg-red-500 hover:text-white'
+                    onClick={() => handleDeleteTask(task.id)}
+                  >
+                    <Trash2 />
+                  </Button>
+                </div>
+              </>
+            ) : (
+              <div className="flex flex-col space-y-2">
+                <Input
+                  type="text"
+                  placeholder="Title"
+                  value={editTask.title}
+                  onChange={(e) => setEditTask({ ...editTask, title: e.target.value })}
+                />
+                <Input
+                  type="text"
+                  placeholder="Description"
+                  value={editTask.description}
+                  onChange={(e) => {
+                    setEditTask({ ...editTask, description: e.target.value });
+                  }}
+                />
+                <Input
+                  type="date"
+                  value={editTask.due_date}
+                  onChange={(e) => {
+                    setEditTask({ ...editTask, due_date: e.target.value });
+                  }}
+                />
+                <Button onClick={() => handleLocalEditTask(task.id, editTask)}>
+                  <PlusCircleIcon />Update Task
+                </Button>
+              </div>
+            )}
           </div>
         ))}
-
+        <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">Add Task</h2>
+        {/* NEED TO CHANGE THIS TO ONLY RENDER WHEN THE USER PRESSES THE ADD TASK PART OF THE PAGE */ }
         <Input
           type="text"
           placeholder="Title"

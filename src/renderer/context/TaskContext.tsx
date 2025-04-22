@@ -8,7 +8,10 @@ type TaskContextType = {
   setTasks: React.Dispatch<React.SetStateAction<Task[]>>;
   newTask: Task;
   setNewTask: React.Dispatch<React.SetStateAction<Task>>;
+  editTask: Task | null;
+  setEditTask: React.Dispatch<React.SetStateAction<Task | null>>;
   handleAddTask: () => void;
+  handleUpdateTask: (id:number, updatedTask:Task) => void;
 };
 
 const TaskContext = createContext<TaskContextType | undefined>(undefined);
@@ -16,6 +19,7 @@ const TaskContext = createContext<TaskContextType | undefined>(undefined);
 export const TaskProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [newTask, setNewTask] = useState<Task>({ title: '', description: '', due_date: '' });
+  const [editTask, setEditTask] = useState<Task | null>(null);
 
   // Fetch tasks from the database when the component mounts
   useEffect(() => {
@@ -46,9 +50,19 @@ export const TaskProvider: React.FC<{ children: React.ReactNode }> = ({ children
     });
   };
 
+  const handleUpdateTask = (id:number, updatedTask:Task) => {
+      console.log('Updating task with ID:', id, 'to:', updatedTask);
+      databaseService.updateTask(id, updatedTask).then(() => {
+        databaseService.getTasks().then(setTasks);
+      });
+      setEditTask(null);
+    };
+  
+  
+
   const contextValue = React.useMemo(
-    () => ({ tasks, setTasks, newTask, setNewTask, handleAddTask }),
-    [tasks, newTask, handleAddTask]
+    () => ({ tasks, setTasks, newTask, editTask, setEditTask, setNewTask, handleAddTask, handleUpdateTask }),
+    [tasks, newTask, editTask, handleUpdateTask, handleAddTask]
   );
 
   return (

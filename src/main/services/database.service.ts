@@ -20,8 +20,8 @@ class DatabaseService {
       deleteTask(id);
     });
 
-    ipcMain.handle('update-task', (event, { id, title, description, dueDate }) => {
-      updateTask(id, title, description, dueDate);
+    ipcMain.handle('update-task', (event, id, task) => {
+      updateTask(id, task.title, task.description, task.due_date);
     });
 
     ipcMain.handle('update-task-status', (event, { id, status }) => {
