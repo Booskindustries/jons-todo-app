@@ -52,14 +52,14 @@ const Homepage = () => {
                 <div className="flex items-center ml-auto">
                   <Button
                     variant='outline'
-                    className='mr-2'
+                    className='mr-2 cursor-pointer'
                     onClick={() => handleEditTask(task,index)}
                   >
                     <Pencil />
                   </Button>
                   <Button
                     variant='outline'
-                    className='hover:bg-red-500 hover:text-white'
+                    className='hover:bg-red-500 hover:text-white cursor-pointer'
                     onClick={() => handleDeleteTask(task.id)}
                   >
                     <Trash2 />
@@ -89,7 +89,7 @@ const Homepage = () => {
                     setEditTask({ ...editTask, due_date: e.target.value });
                   }}
                 />
-                <Button onClick={() => handleLocalEditTask(task.id, editTask)}>
+                <Button onClick={() => handleLocalEditTask(task.id, editTask)} className='cursor-pointer'>
                   <PlusCircleIcon />Update Task
                 </Button>
               </div>
