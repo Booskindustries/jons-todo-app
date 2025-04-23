@@ -44,60 +44,60 @@ const Homepage = () => {
         <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">Home</h2>
         
         {tasks.map((task, index) => (
-          
-          <div className="flex items-center mb-2.5 hover:bg-gray-100 p-2 rounded-md cursor-pointer transition duration-200 ease-in-out" key={`${index}-${task.id}`}>
+        
+          <div className="flex items-center mb-2.5 p-2 rounded-md cursor-pointer transition duration-300 ease-in-out hover:border hover:border-gray-300" key={`${index}-${task.id}`}>
             {edit !== index ? (
               <>
-                <TaskItem key={`${index}-${task.id}`} id={task.id} title={task.title} body={task.description} date={task.due_date} status={task.status} />
-                <div className="flex items-center ml-auto">
-                  <Button
-                    variant='outline'
-                    className='mr-2 cursor-pointer'
-                    onClick={() => handleEditTask(task,index)}
-                  >
-                    <Pencil />
-                  </Button>
-                  <Button
-                    variant='outline'
-                    className='hover:bg-red-500 hover:text-white cursor-pointer'
-                    onClick={() => handleDeleteTask(task.id)}
-                  >
-                    <Trash2 />
-                  </Button>
-                </div>
+              <TaskItem key={`${index}-${task.id}`} id={task.id} title={task.title} body={task.description} date={task.due_date} status={task.status} />
+              <div className="flex items-center ml-auto">
+                <Button
+                variant='outline'
+                className='mr-2 cursor-pointer transition delay-50 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110'
+                onClick={() => handleEditTask(task,index)}
+                >
+                <Pencil />
+                </Button>
+                <Button
+                variant='outline'
+                className='cursor-pointer transition delay-50 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110 hover:bg-red-500 hover:text-white '
+                onClick={() => handleDeleteTask(task.id)}
+                >
+                <Trash2 />
+                </Button>
+              </div>
               </>
             ) : (
               <div className="flex flex-col space-y-2">
-                <Input
-                  type="text"
-                  placeholder="Title"
-                  value={editTask.title}
-                  onChange={(e) => setEditTask({ ...editTask, title: e.target.value })}
-                />
-                <Input
-                  type="text"
-                  placeholder="Description"
-                  value={editTask.description}
-                  onChange={(e) => {
-                    setEditTask({ ...editTask, description: e.target.value });
-                  }}
-                />
-                <Input
-                  type="date"
-                  value={editTask.due_date}
-                  onChange={(e) => {
-                    setEditTask({ ...editTask, due_date: e.target.value });
-                  }}
-                />
-                <Button onClick={() => handleLocalEditTask(task.id, editTask)} className='cursor-pointer'>
-                  <PlusCircleIcon />Update Task
-                </Button>
+              <Input
+                type="text"
+                placeholder="Title"
+                value={editTask.title}
+                onChange={(e) => setEditTask({ ...editTask, title: e.target.value })}
+              />
+              <Input
+                type="text"
+                placeholder="Description"
+                value={editTask.description}
+                onChange={(e) => {
+                setEditTask({ ...editTask, description: e.target.value });
+                }}
+              />
+              <Input
+                type="date"
+                value={editTask.due_date}
+                onChange={(e) => {
+                setEditTask({ ...editTask, due_date: e.target.value });
+                }}
+              />
+              <Button onClick={() => handleLocalEditTask(task.id, editTask)} className='cursor-pointer'>
+                <PlusCircleIcon />Update Task
+              </Button>
               </div>
             )}
-          </div>
+            </div>
         ))}
         <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">Add Task</h2>
-        {/* NEED TO CHANGE THIS TO ONLY RENDER WHEN THE USER PRESSES THE ADD TASK PART OF THE PAGE */ }
+        {/* NEED TO CHANGE THIS TO ONLY RENDER WHEN THE USER PRESSES THE ADD TASK PART OF THE PAGE, ALSO CREATE COMPONENT THAT CAN BE USED AS AN ADD AND AN EDIT */ }
         <Input
           type="text"
           placeholder="Title"
