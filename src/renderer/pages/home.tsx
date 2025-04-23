@@ -42,17 +42,28 @@ const Homepage = () => {
     setNewTask({ title: '', description: '', due_date: '' }); // Reset the new task state
   };
 
+  const handleAddNewTask = () => {
+    setShowAddTask(true); // Show the Add Task component
+    setTimeout(() => {
+      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    }, 0);
+  }
+
   return (
     <div id="home" className="container mx-auto p-4 full-width">
         <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">Home</h2>
         
         {tasks.map((task, index) => (
         
-          <div className="flex items-center mb-2.5 p-2 rounded-md transition duration-300 ease-in-out hover:border hover:border-gray-300" key={`${index}-${task.id}`}>
+            <div
+              className="flex items-center mb-2.5 p-2 rounded-md border border-transparent transition duration-300 ease-in-out hover:border-gray-300"
+              style={{ boxSizing: 'border-box', borderWidth: '2px' }}
+              key={`${index}-${task.id}`}
+            >
             {edit !== index ? (
-                <TaskItem key={`${index}-${task.id}`} task={task} index={index} handleEditTask={handleEditTask} />
+              <TaskItem key={`${index}-${task.id}`} task={task} index={index} handleEditTask={handleEditTask} />
             ) : (
-                <EditTask id={task.id} editTask={editTask} setEditTask={setEditTask} handleLocalEditTask={handleLocalEditTask} />
+              <EditTask id={task.id} editTask={editTask} setEditTask={setEditTask} handleLocalEditTask={handleLocalEditTask} />
             )}
             </div>
         ))}
@@ -61,7 +72,7 @@ const Homepage = () => {
       {!showAddTask && (
         <Button
           variant="ghost"
-          onClick={() => setShowAddTask(true)}
+          onClick={() => handleAddNewTask()}
         >
           + Add a new task
         </Button>

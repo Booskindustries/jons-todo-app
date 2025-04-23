@@ -43,13 +43,14 @@ return (
           }}
         />
         <div className="flex mt-2 flex-row space-x-2 w-full items-start justify-start">
+            
+            <Button onClick={handleAddTask}><PlusCircleIcon />Add New Task</Button>
             <Button
                 variant="outline"
                 onClick={handleCancel}
             >
             Cancel
             </Button>
-            <Button onClick={handleAddTask}><PlusCircleIcon />Add New Task</Button>
         </div>
     </div>
     );
