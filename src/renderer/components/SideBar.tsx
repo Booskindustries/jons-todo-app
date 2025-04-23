@@ -2,6 +2,7 @@ import { Calendar, Home, Inbox, Search, Settings, Plus, PlusCircleIcon } from "l
 import React from "react"
 import { NavUser } from "./nav-user"
 import { QuickTask } from "./QuickTask"
+import { Link } from 'react-router-dom';
 
 import {
     Sidebar,
@@ -39,12 +40,12 @@ const data = {
     items: [
         {
             title: "Home",
-            url: "#",
+            url: "/",
             icon: Home,
         },
         {
             title: "Calendar",
-            url: "#",
+            url: "/calendar",
             icon: Calendar,
         },
         {
@@ -54,7 +55,7 @@ const data = {
         },
         {
             title: "Settings",
-            url: "#",
+            url: "/settings",
             icon: Settings,
         },
     ],
@@ -79,17 +80,17 @@ export function AppSidebar() {
             <SidebarGroupContent>
             <SidebarMenu>
             <SidebarMenuItem className="flex items-center gap-2">
-            <QuickTask />
+              <QuickTask />
             </SidebarMenuItem>
           </SidebarMenu>
               <SidebarMenu>
                 {data.items.map((item) => (
                   <SidebarMenuItem key={item.title}>
                     <SidebarMenuButton asChild>
-                      <a href={item.url}>
+                      <Link to={item.url}>
                         <item.icon />
                         <span>{item.title}</span>
-                      </a>
+                      </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 ))}

@@ -2,15 +2,16 @@ import React from "react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner";
 import { databaseService } from '../services/database.renderer.service';
-
+import { Button } from "@/components/ui/button";
+import { Trash2, Pencil } from "lucide-react";
+import { Task } from "@/lib/types";
+import { useTaskContext } from '../context/TaskContext';
 
 // Added date prop for a time to finish task
 interface TaskItemProps {
-    id: number;
-    title: string;
-    body: string;
-    date?: string; // Optional date prop
-    status: string; 
+    task: Task;
+    index: number;
+    handleEditTask: (task: Task, index: number) => void;
 }
 
 
@@ -20,17 +21,25 @@ interface TaskItemProps {
  * @param {TaskItemProps} props - The properties for the TaskItem component.
  * @returns {JSX.Element} - A React component that represents a task item.
  */
-const TaskItem: React.FC<TaskItemProps> = ({ id, title, body, date, status }) => {
-    const [checked, setChecked] = React.useState(status === "completed");
+const TaskItem: React.FC<TaskItemProps> = ({ task, index, handleEditTask}) => {
+    const { setTasks } = useTaskContext();
+
+    const [checked, setChecked] = React.useState(task.status === "completed");
+
+    const handleDeleteTask = (id:number) => {
+        databaseService.deleteTask(id).then(() => {
+          databaseService.getTasks().then(setTasks);
+        });
+      };
 
     const handleCheckboxClick = () => {
         const newCheckedState = !checked;
         setChecked(newCheckedState);
 
-        databaseService.updateTaskStatus(id, newCheckedState ? "completed" : "pending"); 
-        toast(`Task "${title}" ${newCheckedState ? "checked" : "unchecked"}`, {
+        databaseService.updateTaskStatus(task.id, newCheckedState ? "completed" : "pending"); 
+        toast(`Task "${task.title}" ${newCheckedState ? "checked" : "unchecked"}`, {
             duration: 2000,
-            description: `You have ${newCheckedState ? "checked" : "unchecked"} the task "${title}".`,
+            description: `You have ${newCheckedState ? "checked" : "unchecked"} the task "${task.title}".`,
             action: {
                 label: "Undo",
                 onClick: () => {
@@ -43,14 +52,32 @@ const TaskItem: React.FC<TaskItemProps> = ({ id, title, body, date, status }) =>
       
 
     return (
+        <>
         <div className="flex items-center mb-2.5">
-            <Checkbox className="mr-2.5" checked={checked} onClick={handleCheckboxClick} />
+            <Checkbox className="mr-2.5 cursor-pointer" checked={checked} onClick={handleCheckboxClick} />
             <div>
-                <h3 className="m-0 text-base font-medium">{title}</h3>
-                <p className="m-0 text-sm text-gray-600">{body}</p>
-                {date && <p className="m-0 text-sm text-gray-600">{`Due Date: ${date}`}</p>}
+                <h3 className="m-0 text-base font-medium">{task.title}</h3>
+                <p className="m-0 text-sm text-gray-600">{task.description}</p>
+                {task.due_date && <p className="m-0 text-sm text-gray-600">{`Due Date: ${task.due_date}`}</p>}
             </div>
         </div>
+            <div className="flex items-right ml-auto">
+                <Button
+                    variant='outline'
+                    className='mr-2 cursor-pointer transition delay-50 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110'
+                    onClick={() => handleEditTask(task,index)}
+                >
+                    <Pencil />
+                </Button>
+                <Button
+                    variant='outline'
+                    className='cursor-pointer transition delay-50 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110 hover:bg-red-500 hover:text-white '
+                    onClick={() => handleDeleteTask(task.id)}
+                >
+                    <Trash2 />
+                </Button>
+              </div>
+        </>
     );
 };
 
