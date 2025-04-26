@@ -1,12 +1,22 @@
 import { Textarea } from '@/components/ui/textarea';
 import React, { useState } from 'react';
-import ReactMarkdown from 'react-markdown';
-import rehypeStringify from 'rehype-stringify'
-import remarkGfm from 'remark-gfm'
-import remarkParse from 'remark-parse'
-import remarkRehype from 'remark-rehype'
+import Markdown from 'markdown-parser-react';
+
+
 const NotesPage = () => {
   const [markdownInput, setMarkdownInput] = useState<string>('');
+
+  const customStylesList = {
+    headings: 'text-4xl font-bold mb-4 text-3xl font-semibold mb-3 text-2xl font-medium mb-2 text-xl font-medium mb-2 text-lg font-medium mb-2 text-base font-medium mb-2',
+    paragraphs: 'mb-2',
+    lists: 'list-disc list-inside mb-2 list-decimal list-inside mb-2',
+    links: 'text-blue-500 hover:underline',
+    images: 'max-w-full h-auto mb-2',
+    blockquotes: 'border-l-4 border-gray-300 pl-4 italic mb-2',
+    code: 'bg-gray-100 p-1 rounded-md font-mono text-sm',
+    inlineCode: 'bg-gray-100 p-1 rounded-md font-mono text-sm',
+    horizontalRule: 'border-t border-gray-300 my-4'
+  };
 
   return (
     <div className="container mx-auto p-4">
@@ -23,12 +33,7 @@ const NotesPage = () => {
       {/* Rendered Markdown */}
       <div className="p-4 border rounded-md bg-gray-50">
         <h3 className="text-xl font-semibold mb-2">Preview</h3>
-        <ReactMarkdown 
-          remarkPlugins={[remarkGfm, remarkRehype, remarkParse]}
-          rehypePlugins={[rehypeStringify]}
-          >
-          {markdownInput}
-        </ReactMarkdown>
+        <Markdown content={markdownInput} options={{customClasses:customStylesList}}/>
       </div>
     </div>
   );

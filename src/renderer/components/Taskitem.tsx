@@ -1,7 +1,7 @@
 import React from "react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner";
-import { databaseService } from '../services/database.renderer.service';
+import { databaseService } from '../services/task.renderer.service';
 import { Button } from "@/components/ui/button";
 import { Trash2, Pencil } from "lucide-react";
 import { Task } from "@/lib/types";
