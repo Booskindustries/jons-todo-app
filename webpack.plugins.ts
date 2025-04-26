@@ -15,6 +15,7 @@ export const plugins = [
         from: path.resolve(__dirname, 'src/main/templates/print-tasks.html'),
         to: path.resolve(__dirname, '.webpack/templates'),
       },
+      { from: 'public', to: '.' },
     ],
   }),
 ];

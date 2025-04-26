@@ -12,12 +12,19 @@ import { SidebarMenuButton } from "@/components/ui/sidebar"
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useTaskContext } from "../context/TaskContext";
-
+import { Datepicker } from "./Datepicker";
 
 export function QuickTask() {
 
 const { newTask, setNewTask, handleAddTask } = useTaskContext();
 const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+
+const handleDateChange = (date: Date | undefined) => {
+    if (date) {
+      setNewTask({ ...newTask, due_date: date.toISOString().split("T")[0] }); // Format date as YYYY-MM-DD
+    }
+  };
 
 
 /** 
@@ -27,6 +34,7 @@ const [isDialogOpen, setIsDialogOpen] = useState(false);
 * @component QuickTask
 * @returns {JSX.Element} - A React component that renders a button to open a dialog for creating a new task.
  */
+//TODO: tempeted to just use the add task component here instead of duplicating code
 return (
     <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <DialogTrigger asChild>
@@ -61,14 +69,8 @@ return (
                     setNewTask({ ...newTask, description: e.target.value });
                 }}
             />
-            <Input
-                type="date"
-                value={newTask.due_date}
-                onChange={(e) => {
-                    setNewTask({ ...newTask, due_date: e.target.value });
-                    console.log('Due date:', e.target.value);
-                }}
-            />
+            <Datepicker value={newTask.due_date ? new Date(newTask.due_date) : undefined} onChange={handleDateChange} />
+
             <Button
                 onClick={() => {
                     handleAddTask();

@@ -51,6 +51,18 @@ const ThemeSelector = () => {
           >
             Green
           </Button>
+        <Button
+          onClick={() => handleThemeChange('blue')}
+          className="p-2 rounded bg-blue-500 text-white hover:bg-blue-600"
+        >
+          Blue
+        </Button>
+        <Button
+          onClick={() => handleThemeChange('purple')}
+          className="p-2 rounded bg-purple-500 text-white hover:bg-purple-600"
+        > 
+          Purple
+        </Button>
       </div>
     </div>
   );

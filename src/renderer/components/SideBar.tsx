@@ -35,7 +35,7 @@ const data = {
     user: {
         name: "Jon Barrett",
         email: "jbarrett@pm.me",
-        avatar: "/avatars/pfp.jpg",
+        avatar: "avatars/pfp.jpg",
     },
     items: [
         {

@@ -1,6 +1,7 @@
 import { Textarea } from '@/components/ui/textarea';
 import React, { useState } from 'react';
 import Markdown from 'markdown-parser-react';
+import { Button } from '@/components/ui/button';
 
 
 const NotesPage = () => {
@@ -29,6 +30,10 @@ const NotesPage = () => {
         placeholder="Write your notes in Markdown..."
         className="w-full p-2 border rounded-md mb-4"
       />
+
+      <Button >
+        <span className="text-sm">Save Notes</span>
+      </Button>
 
       {/* Rendered Markdown */}
       <h2 className="text-2xl font-semibold mb-2">Preview</h2>

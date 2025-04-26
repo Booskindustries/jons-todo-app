@@ -3,6 +3,7 @@ import { PlusCircleIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Task } from "@/lib/types";
+import { Datepicker } from "./Datepicker";
 
 type EditTask = {
     editTask :Task
@@ -13,6 +14,12 @@ type EditTask = {
 
 
 export function EditTask({editTask, setEditTask, handleLocalEditTask, id} : Readonly<EditTask>) {
+
+    const handleDateChange = (date: Date | undefined) => {
+        if (date) {
+          setEditTask({ ...editTask, due_date: date.toISOString().split("T")[0] }); // Format date as YYYY-MM-DD
+        }
+      };
     return (
         <div className="flex flex-col space-y-2 w-full align-items-center justify-center">
             <Input
@@ -30,13 +37,8 @@ export function EditTask({editTask, setEditTask, handleLocalEditTask, id} : Read
                 setEditTask({ ...editTask, description: e.target.value });
             }}
             />
-            <Input
-                type="date"
-                value={editTask.due_date}
-                onChange={(e) => {
-                setEditTask({ ...editTask, due_date: e.target.value });
-            }}
-            />
+
+            <Datepicker value={editTask.due_date ? new Date(editTask.due_date) : undefined} onChange={handleDateChange} />
             <Button onClick={() => handleLocalEditTask(id, editTask)} className='cursor-pointer'>
                 <PlusCircleIcon />Update Task
             </Button>
