@@ -12,6 +12,17 @@ const ThemeSelector = () => {
     document.documentElement.className = savedTheme; // Apply saved theme on load
   }, []);
 
+  const handleDarkTheme = () => {
+    const currentTheme = document.documentElement.className; // Get the current theme
+    if (currentTheme.includes('-dark')) {
+      // If already a dark theme, do nothing
+      return;
+    }
+    const darkTheme = currentTheme === 'light' ? 'dark' : `${currentTheme}-dark`; // Determine the dark variant
+    document.documentElement.className = darkTheme; // Apply the dark theme
+    localStorage.setItem('theme', darkTheme); // Save the dark theme to localStorage
+  };
+
   return (
     <div className="p-4">
       <h3 className="text-lg font-semibold mb-2">Select Theme</h3>
@@ -23,7 +34,7 @@ const ThemeSelector = () => {
           Light
         </Button>
         <Button
-          onClick={() => handleThemeChange('dark')}
+          onClick={handleDarkTheme}
           className="p-2 rounded bg-gray-800 text-white hover:bg-gray-700"
         >
           Dark
