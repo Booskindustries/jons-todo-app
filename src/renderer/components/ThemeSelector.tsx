@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 
 const ThemeSelector = () => {
@@ -7,7 +7,7 @@ const ThemeSelector = () => {
     localStorage.setItem('theme', theme); // Save the theme to localStorage
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     const savedTheme = localStorage.getItem('theme') || 'light';
     document.documentElement.className = savedTheme; // Apply saved theme on load
   }, []);

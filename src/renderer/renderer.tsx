@@ -33,6 +33,8 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './app'; // Corrected import path
 
+const savedTheme = localStorage.getItem('theme') || 'light';
+document.documentElement.className = savedTheme;
 // Render the React application into the root div in index.html
 const root = createRoot(document.getElementById('root'));
 root.render(<App />);

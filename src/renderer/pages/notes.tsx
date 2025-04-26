@@ -31,8 +31,8 @@ const NotesPage = () => {
       />
 
       {/* Rendered Markdown */}
+      <h2 className="text-2xl font-semibold mb-2">Preview</h2>
       <div className="p-4 border rounded-md bg-gray-50">
-        <h3 className="text-xl font-semibold mb-2">Preview</h3>
         <Markdown content={markdownInput} options={{customClasses:customStylesList}}/>
       </div>
     </div>

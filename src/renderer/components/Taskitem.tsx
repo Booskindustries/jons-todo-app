@@ -6,6 +6,13 @@ import { Button } from "@/components/ui/button";
 import { Trash2, Pencil } from "lucide-react";
 import { Task } from "@/lib/types";
 import { useTaskContext } from '../context/TaskContext';
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipProvider,
+    TooltipTrigger,
+  } from "@/components/ui/tooltip"
+  
 
 // Added date prop for a time to finish task
 interface TaskItemProps {
@@ -62,20 +69,32 @@ const TaskItem: React.FC<TaskItemProps> = ({ task, index, handleEditTask}) => {
             </div>
         </div>
             <div className="flex items-right ml-auto">
-                <Button
-                    variant='outline'
-                    className='mr-2 cursor-pointer transition delay-50 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110'
-                    onClick={() => handleEditTask(task,index)}
-                >
-                    <Pencil />
-                </Button>
-                <Button
-                    variant='outline'
-                    className='cursor-pointer transition delay-50 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110 hover:bg-red-500 hover:text-white '
-                    onClick={() => handleDeleteTask(task.id)}
-                >
-                    <Trash2 />
-                </Button>
+                <TooltipProvider delayDuration={1}>
+                    <Tooltip>
+                        <TooltipTrigger asChild>
+                            <Button
+                                variant='outline'
+                                className='mr-2 cursor-pointer transition delay-50 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110'
+                                onClick={() => handleEditTask(task,index)}
+                            >
+                                <Pencil />
+                            </Button>
+                        </TooltipTrigger>
+                        <TooltipContent> Edit Task</TooltipContent>
+                    </Tooltip>
+                    <Tooltip>
+                        <TooltipTrigger asChild>
+                            <Button
+                                variant='outline'
+                                className='cursor-pointer transition delay-50 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110 hover:bg-red-500 hover:text-white '
+                                onClick={() => handleDeleteTask(task.id)}
+                            >
+                                <Trash2 />
+                            </Button>
+                        </TooltipTrigger>
+                        <TooltipContent>Delete Task</TooltipContent>
+                    </Tooltip>
+                </TooltipProvider>
               </div>
         </>
     );
