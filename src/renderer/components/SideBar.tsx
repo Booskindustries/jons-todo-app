@@ -1,4 +1,4 @@
-import { Calendar, Home, Inbox, Search, Settings, Plus, PlusCircleIcon } from "lucide-react"
+import { Calendar, Home, Search, Settings, NotebookPen } from "lucide-react"
 import React from "react"
 import { NavUser } from "./nav-user"
 import { QuickTask } from "./QuickTask"
@@ -42,6 +42,11 @@ const data = {
             title: "Home",
             url: "/",
             icon: Home,
+        },
+        {
+            title: "Notes",
+            url: "/notes",
+            icon: NotebookPen,
         },
         {
             title: "Calendar",

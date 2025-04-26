@@ -6,6 +6,7 @@ import { Toaster } from "@/components/ui/sonner"
 import { TaskProvider } from './context/TaskContext';
 import { Settings } from './pages/settings'; // Example additional page
 import CalendarPage from './pages/calendar';
+import NotesPage from './pages/notes';
 
 
 
@@ -18,6 +19,7 @@ const App = () => {
             <Route path="/" element={<Homepage />} />
             <Route path="/settings" element={<Settings />} />
             <Route path="/calendar" element={<CalendarPage />} />
+            <Route path="/notes" element={<NotesPage />} />
         </Routes>
       </Layout>
       <Toaster />
