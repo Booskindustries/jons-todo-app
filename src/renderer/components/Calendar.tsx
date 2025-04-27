@@ -61,10 +61,10 @@ const Calendar: React.FC<CalendarProps> = ({ tasks }) => {
   };
 
   return (
-    <div className="p-4">
+    <div className="p-4 w-full">
     {/* Header */}
-    <div className="flex justify-between items-center mb-4">
-        <Button onClick={handlePrev}>Previous</Button>
+    <div className="flex justify-center items-center mb-4">
+       
         <h2 className="text-xl font-bold">
         {(() => {
             let headerText;
@@ -78,11 +78,12 @@ const Calendar: React.FC<CalendarProps> = ({ tasks }) => {
             return headerText;
         })()}
         </h2>
-        <Button onClick={handleNext}>Next</Button>
+        
     </div>
 
     {/* View Toggle */}
     <div className="flex justify-center mb-4 space-x-2">
+        <Button onClick={handlePrev}>Previous</Button>
         <Button onClick={() => setView("month")} disabled={view === "month"}>
         Month View
         </Button>
@@ -92,10 +93,11 @@ const Calendar: React.FC<CalendarProps> = ({ tasks }) => {
         <Button onClick={() => setView("day")} disabled={view === "day"}>
         Day View
         </Button>
+        <Button onClick={handleNext}>Next</Button>
     </div>
 
     {/* Calendar Container */}
-    <div className="relative h-[500px]">
+    <div className="relative h-[700px]">
         {view === "month" && (
         <div className="grid grid-cols-7 gap-2 h-full">
             {/* Weekday Headers */}
@@ -112,16 +114,16 @@ const Calendar: React.FC<CalendarProps> = ({ tasks }) => {
 
             return (
                 <div
-                key={index}
-                className={`p-2 border rounded h-32 flex flex-col justify-between ${
-                    isCurrentMonth
-                    ? "bg-[var(--background)] text-[var(--foreground)]"
-                    : "bg-[var(--muted)] text-[var(--muted-foreground)]"
-                }`}
+                    key={index}
+                    className={`p-2 border rounded h-32 flex flex-col justify-between ${
+                        isCurrentMonth
+                        ? "bg-[var(--background)] text-[var(--foreground)]"
+                        : "bg-[var(--muted)] text-[var(--muted-foreground)]"
+                    }`}
                 >
-                <div className="text-sm font-bold w-32">{format(date, "d")}</div>
+                <div className="text-sm font-bold">{format(date, "d")}</div>
                 {/* Display tasks */}
-                <div className="overflow-hidden">
+                <div className="overflow-hidden w-32">
                     {tasksForDate.slice(0, 2).map((task) => (
                     <div
                         key={task.id}
@@ -144,12 +146,12 @@ const Calendar: React.FC<CalendarProps> = ({ tasks }) => {
 
         {view === "week" && (
         <div className="grid grid-cols-7 gap-2 h-full">
-            {/* Weekday Headers */}
+            {/* Weekday Headers
             {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day) => (
             <div key={day} className="text-center font-bold">
                 {day}
             </div>
-            ))}
+            ))} */}
             {Array.from({ length: 7 }).map((_, index) => {
             const date = addDays(startOfWeek(currentDate), index);
             const tasksForDate = getTasksForDate(date);
@@ -157,15 +159,15 @@ const Calendar: React.FC<CalendarProps> = ({ tasks }) => {
             return (
                 <div
                     key={index}
-                    className="p-2 border rounded h-full flex flex-col bg-[var(--background)] text-[var(--foreground)]"
+                    className="p-2 border rounded bg-[var(--background)] text-[var(--foreground)]"
                 >
                 {/* Date and Month */}
-                <div className="text-center text-xs font-semibold mb-2">
+                <div className="text-sm font-bold">
                     {format(date, "MMM d")} {/* Example: Sep 25 */}
                 </div>
 
                 {/* Display Tasks */}
-                <div className="flex-1 overflow-hidden w-32">
+                <div className="overflow-hidden flex-grow w-32">
                     {tasksForDate.slice(0, 8).map((task) => (
                     <div
                         key={task.id}
@@ -194,16 +196,16 @@ const Calendar: React.FC<CalendarProps> = ({ tasks }) => {
         {view === "day" && (
         <div className="p-4 border rounded bg-[var(--background)] text-[var(--foreground)] h-full">
             <h3 className="text-lg font-bold mb-2">
-            {format(currentDate, "EEEE, MMMM d, yyyy")}
+                {format(currentDate, "EEEE, MMMM d, yyyy")}
             </h3>
-            <div>
+            <div className="overflow-hidden flex-grow">
             {getTasksForDate(currentDate).map((task) => (
                 <div
-                key={task.id}
-                className="mt-1 p-2 text-sm bg-[var(--primary)] text-[var(--primary-foreground)] rounded"
+                    key={task.id}
+                    className="mt-1 p-2 text-sm bg-[var(--primary)] text-[var(--primary-foreground)] rounded"
                 >
-                <h4 className="font-bold">{task.title}</h4>
-                <p>{task.description}</p>
+                <h4 className="font-bold text-3xl">{task.title}</h4>
+                <p className="text-xl">{task.description}</p>
                 </div>
             ))}
             </div>

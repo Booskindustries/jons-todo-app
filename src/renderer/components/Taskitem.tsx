@@ -65,7 +65,15 @@ const TaskItem: React.FC<TaskItemProps> = ({ task, index, handleEditTask}) => {
             <div>
                 <h3 className="m-0 text-base font-medium">{task.title}</h3>
                 <p className="m-0 text-sm text-gray-600">{task.description}</p>
-                {task.due_date && <p className="m-0 text-sm text-gray-600">{`Due Date: ${task.due_date}`}</p>}
+                {task.due_date && (
+                    <p
+                        className={`m-0 text-sm ${
+                            new Date(task.due_date) < new Date() ? "text-red-400" : "text-gray-600"
+                        }`}
+                    >
+                        {`Due: ${task.due_date}`}
+                    </p>
+                )}
             </div>
         </div>
             <div className="flex items-right ml-auto">
