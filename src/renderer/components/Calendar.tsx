@@ -62,132 +62,155 @@ const Calendar: React.FC<CalendarProps> = ({ tasks }) => {
 
   return (
     <div className="p-4">
-      {/* Header */}
-      <div className="flex justify-between items-center mb-4">
+    {/* Header */}
+    <div className="flex justify-between items-center mb-4">
         <Button onClick={handlePrev}>Previous</Button>
         <h2 className="text-xl font-bold">
-          {(() => {
+        {(() => {
+            let headerText;
             if (view === "month") {
-              return format(currentDate, "MMMM yyyy");
+                headerText = format(currentDate, "MMMM yyyy");
             } else if (view === "week") {
-              return `Week of ${format(startOfWeek(currentDate), "MMM d")}`;
+                headerText = `Week of ${format(startOfWeek(currentDate), "MMM d")}`;
             } else {
-              return format(currentDate, "MMMM d, yyyy");
+                headerText = format(currentDate, "MMMM d, yyyy");
             }
-          })()}
+            return headerText;
+        })()}
         </h2>
         <Button onClick={handleNext}>Next</Button>
-      </div>
+    </div>
 
-      {/* View Toggle */}
-      <div className="flex justify-center mb-4 space-x-2">
+    {/* View Toggle */}
+    <div className="flex justify-center mb-4 space-x-2">
         <Button onClick={() => setView("month")} disabled={view === "month"}>
-          Month View
+        Month View
         </Button>
         <Button onClick={() => setView("week")} disabled={view === "week"}>
-          Week View
+        Week View
         </Button>
         <Button onClick={() => setView("day")} disabled={view === "day"}>
-          Day View
+        Day View
         </Button>
-      </div>
+    </div>
 
-      {/* Calendar Views */}
-      {view === "month" && (
-        <div className="grid grid-cols-7 gap-2">
-          {/* Weekday Headers */}
-          {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day) => (
+    {/* Calendar Container */}
+    <div className="relative h-[500px]">
+        {view === "month" && (
+        <div className="grid grid-cols-7 gap-2 h-full">
+            {/* Weekday Headers */}
+            {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day) => (
             <div key={day} className="text-center font-bold">
-              {day}
+                {day}
             </div>
-          ))}
+            ))}
 
-          {/* Days */}
-          {days.map((date, index) => {
+            {/* Days */}
+            {days.map((date, index) => {
             const isCurrentMonth = isSameMonth(date, currentDate);
             const tasksForDate = getTasksForDate(date);
 
             return (
-              <div
+                <div
                 key={index}
                 className={`p-2 border rounded h-32 flex flex-col justify-between ${
-                  isCurrentMonth
+                    isCurrentMonth
                     ? "bg-[var(--background)] text-[var(--foreground)]"
                     : "bg-[var(--muted)] text-[var(--muted-foreground)]"
                 }`}
-              >
-                <div className="text-sm font-bold">{format(date, "d")}</div>
+                >
+                <div className="text-sm font-bold w-32">{format(date, "d")}</div>
                 {/* Display tasks */}
                 <div className="overflow-hidden">
-                  {tasksForDate.slice(0, 2).map((task) => (
+                    {tasksForDate.slice(0, 2).map((task) => (
                     <div
-                      key={task.id}
-                      className="mt-1 p-1 text-xs bg-[var(--primary)] text-[var(--primary-foreground)] rounded"
+                        key={task.id}
+                        className="mt-1 p-1 text-xs bg-[var(--primary)] text-[var(--primary-foreground)] rounded w-32"
                     >
-                    
-                      <h3>{task.title}</h3>
-                      <p>{task.description}</p>
+                         <h4 className="font-bold">{task.title}</h4>
                     </div>
-                  ))}
-                  {tasksForDate.length > 2 && (
-                    <div className="mt-1 text-xs text-gray-500">+{tasksForDate.length - 2} more</div>
-                  )}
+                    ))}
+                    {tasksForDate.length > 2 && (
+                    <div className="mt-1 text-xs text-gray-500">
+                        +{tasksForDate.length - 2} more
+                    </div>
+                    )}
                 </div>
-              </div>
+                </div>
             );
-          })}
+            })}
         </div>
-      )}
+        )}
 
-      {view === "week" && (
-        <div className="grid grid-cols-7 gap-2">
-          {Array.from({ length: 7 }).map((_, index) => {
+        {view === "week" && (
+        <div className="grid grid-cols-7 gap-2 h-full">
+            {/* Weekday Headers */}
+            {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day) => (
+            <div key={day} className="text-center font-bold">
+                {day}
+            </div>
+            ))}
+            {Array.from({ length: 7 }).map((_, index) => {
             const date = addDays(startOfWeek(currentDate), index);
             const tasksForDate = getTasksForDate(date);
 
             return (
-              <div
-                key={index}
-                className="p-2 border rounded h-32 flex flex-col justify-between bg-[var(--background)] text-[var(--foreground)]"
-              >
-                <div className="text-sm font-bold">{format(date, "EEE, MMM d")}</div>
-                {/* Display tasks */}
-                <div className="overflow-hidden">
-                  {tasksForDate.slice(0, 3).map((task) => (
-                    <div
-                      key={task.id}
-                      className="mt-1 p-1 text-xs bg-[var(--primary)] text-[var(--primary-foreground)] rounded"
-                    >
-                      {task.title}
-                    </div>
-                  ))}
-                  {tasksForDate.length > 3 && (
-                    <div className="mt-1 text-xs text-gray-500">+{tasksForDate.length - 3} more</div>
-                  )}
+                <div
+                    key={index}
+                    className="p-2 border rounded h-full flex flex-col bg-[var(--background)] text-[var(--foreground)]"
+                >
+                {/* Date and Month */}
+                <div className="text-center text-xs font-semibold mb-2">
+                    {format(date, "MMM d")} {/* Example: Sep 25 */}
                 </div>
-              </div>
-            );
-          })}
-        </div>
-      )}
 
-      {view === "day" && (
-        <div className="p-4 border rounded bg-[var(--background)] text-[var(--foreground)]">
-          <h3 className="text-lg font-bold mb-2">{format(currentDate, "EEEE, MMMM d, yyyy")}</h3>
-          <div>
+                {/* Display Tasks */}
+                <div className="flex-1 overflow-hidden w-32">
+                    {tasksForDate.slice(0, 8).map((task) => (
+                    <div
+                        key={task.id}
+                        className="mt-1 p-1 text-xs bg-[var(--primary)] text-[var(--primary-foreground)] rounded"
+                    >
+                        <h4 className="font-bold">{task.title}</h4>
+                        <p>
+                            {task.description.length > 50
+                                ? `${task.description.slice(0, 50)}...`
+                                : task.description}
+                        </p>
+                    </div>
+                    ))}
+                    {tasksForDate.length > 8 && (
+                    <div className="mt-1 text-xs text-gray-500">
+                        +{tasksForDate.length - 8} more
+                    </div>
+                    )}
+                </div>
+                </div>
+            );
+            })}
+        </div>
+        )}
+
+        {view === "day" && (
+        <div className="p-4 border rounded bg-[var(--background)] text-[var(--foreground)] h-full">
+            <h3 className="text-lg font-bold mb-2">
+            {format(currentDate, "EEEE, MMMM d, yyyy")}
+            </h3>
+            <div>
             {getTasksForDate(currentDate).map((task) => (
-              <div
+                <div
                 key={task.id}
                 className="mt-1 p-2 text-sm bg-[var(--primary)] text-[var(--primary-foreground)] rounded"
-              >
+                >
                 <h4 className="font-bold">{task.title}</h4>
                 <p>{task.description}</p>
-              </div>
+                </div>
             ))}
-          </div>
+            </div>
         </div>
-      )}
+        )}
     </div>
+</div>
   );
 };
 

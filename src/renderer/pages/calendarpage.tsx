@@ -5,10 +5,10 @@ import { useTaskContext } from "@/context/TaskContext"; // Adjust the import pat
 const CalendarPage = () => {
   const { tasks } = useTaskContext(); // Assuming you have a context to get tasks
   return (
-        <div className="flex h-screen w-full flex-col items-center justify-center bg-background text-foreground">
-            <h1 className="text-2xl font-bold">Calendar</h1>
-            <Calendar tasks={tasks}/>
-        </div> 
+    <div className="flex flex-col items-center bg-background text-foreground">
+      <h1 className="text-2xl font-bold mt-4">Calendar</h1>
+      <Calendar tasks={tasks} />
+    </div>
   );
 };
 
