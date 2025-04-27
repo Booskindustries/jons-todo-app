@@ -6,6 +6,8 @@ import { useTaskContext } from '../context/TaskContext';
 import { EditTask } from '@/components/EditTask';
 import { AddTask } from '@/components/AddTask';
 import { Button } from '@/components/ui/button';
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@/components/ui/accordion';
+import { Separator } from '@/components/ui/separator';
 
 const Homepage = () => {
   const [edit, setEdit] = React.useState<number>(-1);
@@ -53,7 +55,8 @@ const Homepage = () => {
     <div id="home" className="container mx-auto p-4 full-width">
         <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">Home</h2>
         
-        {tasks.map((task, index) => (
+        {tasks.filter(task => task.status != 'completed').length > 0 ? (
+              tasks.filter(task => task.status != 'completed').map((task, index) => (
         
             <div
               className="flex items-center mb-2.5 p-2 rounded-md border border-transparent transition duration-300 ease-in-out hover:border-gray-300"
@@ -66,7 +69,9 @@ const Homepage = () => {
               <EditTask id={task.id} editTask={editTask} setEditTask={setEditTask} handleLocalEditTask={handleLocalEditTask} />
             )}
             </div>
-        ))}
+        ))) : (
+          <p>No tasks available</p>
+        )}
 
        {/* Hoverable button to reveal Add Task */}
       {!showAddTask && (
@@ -84,6 +89,30 @@ const Homepage = () => {
           <AddTask newTask={newTask} setNewTask={setNewTask} handleAddTask={handleAddTaskAndHide} handleCancel={handleCancelAddTask} />
         </div>
       )}
+
+      <Accordion type="single" collapsible className="w-full">
+        <AccordionItem value="completed">
+          <AccordionTrigger className="text-2xl">Completed tasks</AccordionTrigger> 
+          <Separator />
+          <AccordionContent>
+            {tasks.filter(task => task.status === 'completed').length > 0 ? (
+              tasks.filter(task => task.status === 'completed').map((task, index) => (
+                <div
+                  className="flex items-center mb-2.5 p-2 rounded-md border border-transparent transition duration-300 ease-in-out hover:border-gray-300"
+                  style={{ boxSizing: 'border-box', borderWidth: '2px' }}
+                  key={`${index}-${task.id}`}
+                >
+                  <TaskItem key={`${index}-${task.id}`} task={task} index={index} handleEditTask={handleEditTask} />
+                </div>
+              ))
+            ) : (
+              <p>No completed tasks</p>
+            )}
+          </AccordionContent>
+        </AccordionItem>
+      </Accordion>
+
+
     </div>
   );
 };

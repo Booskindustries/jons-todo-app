@@ -39,17 +39,26 @@ const TaskItem: React.FC<TaskItemProps> = ({ task, index, handleEditTask}) => {
         });
       };
 
+    const handleDatabaseUpdate = (id:number, status:string) => {
+        databaseService.updateTaskStatus(id, status).then(() => {
+          databaseService.getTasks().then(setTasks);
+            }
+        );
+    } 
+
+    //TODO: need the undo function to update the database so the component updates with the status being corrected
     const handleCheckboxClick = () => {
         const newCheckedState = !checked;
         setChecked(newCheckedState);
-
-        databaseService.updateTaskStatus(task.id, newCheckedState ? "completed" : "pending"); 
+        handleDatabaseUpdate(task.id, newCheckedState ? "completed" : "pending");
+        
         toast(`Task "${task.title}" ${newCheckedState ? "checked" : "unchecked"}`, {
             duration: 2000,
             description: `You have ${newCheckedState ? "checked" : "unchecked"} the task "${task.title}".`,
             action: {
                 label: "Undo",
                 onClick: () => {
+                    handleDatabaseUpdate(task.id, !newCheckedState ? "pending" : "completed");
                     setChecked(!newCheckedState);
                     toast.dismiss();
                 },
