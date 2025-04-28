@@ -167,7 +167,7 @@ const Calendar: React.FC<CalendarProps> = ({ tasks }) => {
                 </div>
 
                 {/* Display Tasks */}
-                <div className="overflow-hidden flex-grow w-32">
+                <div className="overflow-hidden">
                     {tasksForDate.slice(0, 8).map((task) => (
                     <div
                         key={task.id}
