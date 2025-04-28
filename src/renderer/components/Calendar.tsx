@@ -123,11 +123,11 @@ const Calendar: React.FC<CalendarProps> = ({ tasks }) => {
                 >
                 <div className="text-sm font-bold">{format(date, "d")}</div>
                 {/* Display tasks */}
-                <div className="overflow-hidden w-32">
+                <div className="overflow-hidden">
                     {tasksForDate.slice(0, 2).map((task) => (
                     <div
                         key={task.id}
-                        className="mt-1 p-1 text-xs bg-[var(--primary)] text-[var(--primary-foreground)] rounded w-32"
+                        className="mt-1 p-1 text-xs bg-[var(--primary)] text-[var(--primary-foreground)] rounded"
                     >
                          <h4 className="font-bold">{task.title}</h4>
                     </div>
