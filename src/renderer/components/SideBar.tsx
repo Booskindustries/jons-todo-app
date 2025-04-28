@@ -10,10 +10,12 @@ import {
     SidebarGroup,
     SidebarGroupContent,
     SidebarGroupLabel,
+    SidebarHeader,
     SidebarFooter,
     SidebarMenu,
     SidebarMenuButton,
     SidebarMenuItem,
+    SidebarRail,
 } from "@/components/ui/sidebar"
 
 /**
@@ -39,7 +41,7 @@ const data = {
     },
     items: [
         {
-            title: "Home",
+            title: "All Tasks",
             url: "/",
             icon: Home,
         },
@@ -80,14 +82,16 @@ export function AppSidebar() {
   return (
       <Sidebar collapsible="icon">
         <SidebarContent>
+          <SidebarHeader>
+          <SidebarMenu>
+              <SidebarMenuItem>
+                <QuickTask />
+              </SidebarMenuItem>
+            </SidebarMenu>
+          </SidebarHeader>
           <SidebarGroup>
-            {/* <SidebarGroupLabel>Application</SidebarGroupLabel> */}
+            <SidebarGroupLabel>Pages</SidebarGroupLabel>
             <SidebarGroupContent>
-            <SidebarMenu>
-            <SidebarMenuItem className="flex items-center gap-2">
-              <QuickTask />
-            </SidebarMenuItem>
-          </SidebarMenu>
               <SidebarMenu>
                 {data.items.map((item) => (
                   <SidebarMenuItem key={item.title}>
@@ -106,6 +110,7 @@ export function AppSidebar() {
         <SidebarFooter>
           <NavUser user={data.user} />
         </SidebarFooter>
+        <SidebarRail />
       </Sidebar>
   )
 }

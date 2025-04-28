@@ -13,6 +13,15 @@ import {
 import { Task } from "@/lib/types"; // Adjust the import path as necessary
 import { Button } from "@/components/ui/button"; // Adjust the import path as necessary
 
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+
+
 type CalendarProps = {
   tasks: Task[];
 };
@@ -60,8 +69,12 @@ const Calendar: React.FC<CalendarProps> = ({ tasks }) => {
     return tasks.filter((task) => isSameWeek(new Date(task.due_date), date, { weekStartsOn: 0 }));
   };
 
+  const captaliseFirstLetter = (str: string) => {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
+
   return (
-    <div className="p-4 w-full">
+    <div className="p-6 w-full">
     {/* Header */}
     <div className="flex justify-center items-center mb-4">
        
@@ -83,8 +96,19 @@ const Calendar: React.FC<CalendarProps> = ({ tasks }) => {
 
     {/* View Toggle */}
     <div className="flex justify-center mb-4 space-x-2">
+
+      <Select onValueChange={(value) => setView(value as "month" | "week" | "day")}>
+        <SelectTrigger className="w-[180px]">
+          <SelectValue placeholder={`${captaliseFirstLetter(view)} View`} />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="month">Month View</SelectItem>
+          <SelectItem value="week">Week View</SelectItem>
+          <SelectItem value="day">Day View</SelectItem>
+        </SelectContent>
+      </Select>
         <Button onClick={handlePrev}>Previous</Button>
-        <Button onClick={() => setView("month")} disabled={view === "month"}>
+        {/* <Button onClick={() => setView("month")} disabled={view === "month"}>
         Month View
         </Button>
         <Button onClick={() => setView("week")} disabled={view === "week"}>
@@ -92,7 +116,7 @@ const Calendar: React.FC<CalendarProps> = ({ tasks }) => {
         </Button>
         <Button onClick={() => setView("day")} disabled={view === "day"}>
         Day View
-        </Button>
+        </Button> */}
         <Button onClick={handleNext}>Next</Button>
     </div>
 

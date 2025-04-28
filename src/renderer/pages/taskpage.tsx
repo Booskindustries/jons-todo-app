@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@/components/ui/accordion';
 import { Separator } from '@/components/ui/separator';
 
-const Homepage = () => {
+const Taskpage = () => {
   const [edit, setEdit] = React.useState<number>(-1);
   const [showAddTask, setShowAddTask] = React.useState<boolean>(false);
   const { tasks, newTask, setNewTask, editTask, setEditTask, handleAddTask , handleUpdateTask} = useTaskContext();
@@ -117,4 +117,4 @@ const Homepage = () => {
   );
 };
 
-export default Homepage;
+export default Taskpage;

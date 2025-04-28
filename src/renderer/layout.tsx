@@ -16,7 +16,7 @@ const Layout = ( { children }: {children:React.ReactNode}) => {
     <SidebarProvider>
       <AppSidebar />
       <main className="flex h-screen w-full flex-col overflow-auto bg-background text-foreground">
-        <SidebarTrigger />
+        {/* <SidebarTrigger /> */}
         {children}
       </main>
     </SidebarProvider>
