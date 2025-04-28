@@ -252,7 +252,7 @@ const Calendar: React.FC<CalendarProps> = ({ tasks }) => {
             {getTasksForDate(currentDate).map((task) => (
               <Button
                 key={task.id}
-                className="cursor-pointer w-full text-left h-20 flex flex-col items-start"
+                className="cursor-pointer mb-2 w-full text-left h-20 flex flex-col items-start"
               >
                 <h4 className="font-bold text-3xl text-left">{task.title}</h4>
                 <p className="text-xl text-left">{task.description}</p>
