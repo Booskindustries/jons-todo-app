@@ -3,11 +3,11 @@ import { useTaskContext } from '../context/TaskContext';
 
 
 import {
-  BellIcon,
   Printer,
   LogOutIcon,
   MoreVerticalIcon,
   UserCircleIcon,
+  Settings,
 } from "lucide-react"
 
 import {
@@ -30,6 +30,7 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar"
+import { Link } from "react-router-dom";
 
 
 
@@ -122,9 +123,11 @@ export function NavUser({
                 <Printer />
                 Print
               </DropdownMenuItem>
-              <DropdownMenuItem>
-                <BellIcon />
-                Notifications
+              <DropdownMenuItem asChild>
+                <Link to="/Settings">
+                  <Settings />
+                  Settings
+                </Link>
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
