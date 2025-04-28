@@ -32,7 +32,7 @@ import {
 } from "@/components/ui/sidebar"
 import { Link } from "react-router-dom";
 
-
+//TODO: need to do more with account setting and being able to login and pfp customisation
 
 /**
  * @param param0 - The user object containing user information.
