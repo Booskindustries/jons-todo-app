@@ -21,6 +21,11 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
 
 type CalendarProps = {
   tasks: Task[];
@@ -59,6 +64,11 @@ const Calendar: React.FC<CalendarProps> = ({ tasks }) => {
     } else {
       setCurrentDate((prev) => addDays(prev, 1));
     }
+  };
+
+  const handleCellClick = (date: Date) => {
+    setCurrentDate(date); // Set the clicked date as the current date
+    setView("day"); // Switch to day view
   };
 
   const getTasksForDate = (date: Date) => {
@@ -107,7 +117,7 @@ const Calendar: React.FC<CalendarProps> = ({ tasks }) => {
           <SelectItem value="day">Day View</SelectItem>
         </SelectContent>
       </Select>
-        <Button onClick={handlePrev}>Previous</Button>
+        <Button  variant='ghost' className="cursor-pointer" onClick={handlePrev}>{'<'}</Button>
         {/* <Button onClick={() => setView("month")} disabled={view === "month"}>
         Month View
         </Button>
@@ -117,7 +127,7 @@ const Calendar: React.FC<CalendarProps> = ({ tasks }) => {
         <Button onClick={() => setView("day")} disabled={view === "day"}>
         Day View
         </Button> */}
-        <Button onClick={handleNext}>Next</Button>
+        <Button className="cursor-pointer" onClick={handleNext}>{'>'}</Button>
     </div>
 
     {/* Calendar Container */}
@@ -136,33 +146,49 @@ const Calendar: React.FC<CalendarProps> = ({ tasks }) => {
             const isCurrentMonth = isSameMonth(date, currentDate);
             const tasksForDate = getTasksForDate(date);
 
+            let cellStyling = "";
+            
+            if (isCurrentMonth) {
+              if (isSameDay(date, new Date())) {
+                cellStyling = "bg-[var(--background)] text-[var(--foreground)] border-[var(--accent-foreground)]";
+              } else {
+                cellStyling = "bg-[var(--background)] text-[var(--foreground)]";
+              }
+            } else {
+              cellStyling = "bg-[var(--muted)] text-[var(--muted-foreground)]";
+            }
+
             return (
                 <div
-                    key={index}
-                    className={`p-2 border rounded h-32 flex flex-col justify-between ${
-                        isCurrentMonth
-                        ? "bg-[var(--background)] text-[var(--foreground)]"
-                        : "bg-[var(--muted)] text-[var(--muted-foreground)]"
-                    }`}
+                  key={index}
+                  className={`p-2 border rounded h-32 flex flex-col justify-between ${cellStyling}`}
+                  
                 >
-                <div className="text-sm font-bold">{format(date, "d")}</div>
+                <Button variant="ghost" onClick={() => handleCellClick(date)} className="cursor-pointer text-sm font-bold">{format(date, "d")}</Button>
                 {/* Display tasks */}
                 <div className="overflow-hidden">
                     {tasksForDate.slice(0, 2).map((task) => (
-                    <div
-                        key={task.id}
-                        className="mt-1 p-1 text-xs bg-[var(--primary)] text-[var(--primary-foreground)] rounded"
-                    >
-                         <h4 className="font-bold">{task.title}</h4>
-                    </div>
-                    ))}
-                    {tasksForDate.length > 2 && (
-                    <div className="mt-1 text-xs text-gray-500">
-                        +{tasksForDate.length - 2} more
-                    </div>
+                     <Tooltip key={task.id}>
+                        <TooltipTrigger asChild>
+                        <Button  
+                            className="w-full cursor-pointer items-start flex flex-col items-start h-6 mb-1"
+                        >
+                            <h4 className="font-bold text-sm text-left">{task.title.length > 12 ? `${task.title.slice(0, 12)}...` : task.title}</h4>
+                        </Button>
+                        </TooltipTrigger>
+                        {task.title.length > 12 ? (
+                          <TooltipContent>{task.title}</TooltipContent>
+                        ) : null
+                        }
+                      </Tooltip>
+                        ))}
+                        {tasksForDate.length > 2 && (
+                        <div className="mt-1 text-xs text-gray-500">
+                            +{tasksForDate.length - 2} more
+                        </div>
                     )}
                 </div>
-                </div>
+              </div>
             );
             })}
         </div>
@@ -222,15 +248,15 @@ const Calendar: React.FC<CalendarProps> = ({ tasks }) => {
             <h3 className="text-lg font-bold mb-2">
                 {format(currentDate, "EEEE, MMMM d, yyyy")}
             </h3>
-            <div className="overflow-hidden flex-grow">
+            <div className="overflow-hidden">
             {getTasksForDate(currentDate).map((task) => (
-                <div
-                    key={task.id}
-                    className="mt-1 p-2 text-sm bg-[var(--primary)] text-[var(--primary-foreground)] rounded"
-                >
-                <h4 className="font-bold text-3xl">{task.title}</h4>
-                <p className="text-xl">{task.description}</p>
-                </div>
+              <Button
+                key={task.id}
+                className="cursor-pointer w-full text-left h-20 flex flex-col items-start"
+              >
+                <h4 className="font-bold text-3xl text-left">{task.title}</h4>
+                <p className="text-xl text-left">{task.description}</p>
+              </Button>
             ))}
             </div>
         </div>
