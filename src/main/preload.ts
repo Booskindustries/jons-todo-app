@@ -9,4 +9,5 @@ contextBridge.exposeInMainWorld('ipcAPI', {
   on: (channel: string, listener: (...args: any[]) => void) => ipcRenderer.on(channel, listener),
   once: (channel: string, listener: (...args: any[]) => void) => ipcRenderer.once(channel, listener),
   printHome: () => ipcRenderer.invoke('print-home'),
+  saveAvatar:(filePath: string) => ipcRenderer.invoke('save-avatar',filePath),
 });

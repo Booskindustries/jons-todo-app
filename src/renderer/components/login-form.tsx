@@ -12,6 +12,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useAccount } from '@/context/AccountContext';
+import { Avatar } from '@radix-ui/react-avatar';
+import AvatarUpload from './AvatarUpload';
 
 export function LoginForm({
   className,
@@ -53,6 +55,7 @@ export function LoginForm({
                     required
                   />
                 </div>
+                <AvatarUpload />
                 <Button type="submit" className="w-full">
                   Login
                 </Button>

@@ -3,6 +3,7 @@ import { updateElectronApp } from 'update-electron-app';
 import log from 'electron-log';
 import  DatabaseService  from './services/database.service';
 import { registerPrintService } from './services/print.service';
+import { AccountService } from './services/account.service';
 
 // Automatically check for updates
 updateElectronApp({
@@ -20,7 +21,8 @@ if (require('electron-squirrel-startup')) {
 // Initialize the database service
 const databaseService = new DatabaseService();
 log.debug('DatabaseService initialized:', databaseService);
-
+const accountService = new AccountService();
+log.debug('AccountService initialized:', accountService);
 registerPrintService();
 
 const createWindow = (): void => {
