@@ -7,24 +7,29 @@ import { TaskProvider } from './context/TaskContext';
 import { Settings } from './pages/settings'; // Example additional page
 import CalendarPage from './pages/calendarpage';
 import NotesPage from './pages/notes';
-
+import { AccountProvider } from './context/AccountContext';
+import LoginPage from "./pages/loginpage";
+import ProtectedRoute from './components/ProtectedRoute';
 
 
 const App = () => {
   return (
-    <TaskProvider>
-      <Router>
-      <Layout>
-        <Routes>
-            <Route path="/" element={<Taskpage />} />
-            <Route path="/settings" element={<Settings />} />
-            <Route path="/calendar" element={<CalendarPage />} />
-            <Route path="/notes" element={<NotesPage />} />
-        </Routes>
-      </Layout>
-      <Toaster />
-      </Router>
-    </TaskProvider>
+    <AccountProvider>
+      <TaskProvider>
+        <Router>
+        <Layout>
+          <Routes>
+              <Route path="/" element={<ProtectedRoute><Taskpage /></ProtectedRoute>} />
+              <Route path="/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
+              <Route path="/calendar" element={<ProtectedRoute><CalendarPage /></ProtectedRoute>} />
+              <Route path="/notes" element={<ProtectedRoute><NotesPage /></ProtectedRoute>} />
+              <Route path="/login" element={<LoginPage />} />
+          </Routes>
+        </Layout>
+        <Toaster />
+        </Router>
+      </TaskProvider>
+    </AccountProvider>
   );
 };
 

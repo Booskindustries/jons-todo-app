@@ -18,3 +18,9 @@ export type Task = {
     due_date: string;
     status?: string;
   };
+
+export type Account = {
+  name: string;
+  email: string;
+  avatar?: string;
+}

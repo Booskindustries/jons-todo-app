@@ -18,6 +18,7 @@ import {
     SidebarRail,
     SidebarTrigger,
 } from "@/components/ui/sidebar"
+import ProtectedRoute from "./ProtectedRoute";
 
 /**
  * Data structure for the sidebar items and user information.
@@ -35,11 +36,6 @@ import {
  *  
  */
 const data = {
-    user: {
-        name: "Jon Barrett",
-        email: "jbarrett@pm.me",
-        avatar: "avatars/pfp.jpg",
-    },
     items: [
         {
             title: "All Tasks",
@@ -81,6 +77,7 @@ const data = {
  */
 export function AppSidebar() {
   return (
+    <ProtectedRoute>
       <Sidebar collapsible="icon">
         <SidebarContent>
           <SidebarHeader>
@@ -114,9 +111,10 @@ export function AppSidebar() {
             <SidebarTrigger />
           </SidebarMenuItem>
         </SidebarMenu>
-          <NavUser user={data.user} />
+          <NavUser />
         </SidebarFooter>
         <SidebarRail />
       </Sidebar>
+      </ProtectedRoute>
   )
 }
